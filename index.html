@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Website Ulang Tahun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('bg.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            width: 320px; /* Ukuran diperbesar */
+            text-align: center;
+            color: white;
+        }
+
+        .login-box h1 {
+            margin-bottom: 35px;
+            font-size: 2em;
+            margin-top: -10px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .input-group input {
+            width: 250px; 
+            padding: 12px 40px 12px 35px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.4);
+            color: black;
+            font-size: 1em;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: gray;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #aaa;
+            font-weight: bold;
+            cursor: not-allowed;
+            transition: 0.3s;
+        }
+
+        button:enabled {
+            background-color: white;
+            color: black;
+            cursor: pointer;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .options a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .clue {
+            font-size: 0.7em;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+        <h1>Login</h1>
+        <div class="input-group">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="username" placeholder="Username">
+        </div>
+        <div class="input-group">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="password" placeholder="Password">
+        </div>
+
+        <div class="options">
+            <label><input type="checkbox"> Remember Me</label>
+            <a href="#" onclick="alert('How could you forget your name n your birthday??!'); return false;">Forgot Password</a>
+        </div>
+
+        <button id="loginButton" onclick="login()" disabled>Login</button>
+
+        <div class="clue">Clue password: The day you were born</div>
+        <div class="error" id="errorMsg"></div>
+    </div>
+
+    <script>
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginButton = document.getElementById('loginButton');
+
+        usernameInput.addEventListener('input', checkInputs);
+        passwordInput.addEventListener('input', checkInputs);
+
+        function checkInputs() {
+            if (usernameInput.value.trim() !== '' && passwordInput.value.trim() !== '') {
+                loginButton.disabled = false;
+            } else {
+                loginButton.disabled = true;
+            }
+        }
+
+        function login() {
+            const username = document.getElementById('username').value.toLowerCase();
+            const password = document.getElementById('password').value;
+
+            const validUsername = "najwa sajdah syam";
+            const validPassword = "150707";
+
+            if (username === validUsername && password === validPassword) {
+                window.location.href = "home.html";
+            } else {
+                document.getElementById('errorMsg').innerText = "Incorrect, try again!";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

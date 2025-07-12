@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <title>About</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-size: cover;
+       background-attachment: fixed;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+      color: white;
+    }
+
+    .navbar {
+      width: 100%;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      position: fixed;
+      background: rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .hamburger {
+      font-size: 1.8em;
+      cursor: pointer;
+      color: white;
+      z-index: 2001;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 20px 30px;
+      transition: left 0.3s ease;
+      z-index: 2000;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .side-menu ul {
+      list-style: none;
+    }
+
+    .side-menu ul li {
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .side-menu ul li i {
+      margin-right: 10px;
+      color: white;
+    }
+
+    .side-menu ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    .side-menu ul li a:hover {
+      color: #ffcccc;
+    }
+
+    .side-menu.active {
+      left: 0;
+    }
+
+    .music-button {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 55px;
+      height: 55px;
+      background-color: rgba(255, 255, 255, 0.3);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.8em;
+      z-index: 1000;
+      transition: all 0.3s ease, opacity 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .music-button.active {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: black;
+    }
+
+    .music-button:hover {
+      transform: scale(1.1);
+    }
+
+    .hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 150px auto 60px;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .text-content {
+      flex: 1;
+      min-width: 300px;
+      max-width: 500px;
+    }
+
+    .text-content h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    }
+
+    .text-content p {
+      font-size: 0.9em;
+      text-align: justify;
+      line-height: 1.6;
+      transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    }
+
+    .carousel {
+      flex: 1;
+      position: relative;
+      padding-left: 20px;
+      max-width: 650px;
+    }
+
+    .carousel-window {
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 15px;
+      transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+      will-change: transform;
+    }
+
+    .slide {
+      width: 160px;
+      height: 240px;
+      border-radius: 15px;
+      overflow: hidden;
+      transform: scale(1);
+      transition: transform 0.5s ease-in-out, opacity 0.4s ease-in-out;
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    .slide:not(.active) img {
+      filter: blur(2px);
+      transition: filter 0.3s ease;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+
+
+    }
+
+    .slide.active {
+      transform: scale(1.15);
+      margin: 0 10px;
+      opacity: 1;
+      z-index: 2;
+      transform-origin: center center;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .controls {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .progress-line {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+      min-width: 150px;
+      max-width: 300px;
+    }
+
+    .progress-line::after {
+      content: "";
+      display: block;
+      height: 100%;
+      width: calc(100% / 6 * var(--progress, 0));
+      background: white;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .btn {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+      color: black;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+        margin-top: 120px;
+        max-width: 95%; 
+      }
+
+      .text-content {
+  order: 2;
+  margin-top: 20px;
+}
+
+.carousel {
+  order: 1;
+}
+
+      .carousel {
+        padding-left: 0;
+        max-width: 100%;
+      }
+
+      .carousel-window {
+        overflow: hidden;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .carousel-track {
+        gap: 0;
+        transform: none !important;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .slide {
+        width: 240px;
+        height: 320px;
+        margin: 0 auto;
+        opacity: 0;
+        display: none;
+        transition: all 0.4s ease;
+        will-change: opacity, transform;
+      }
+
+      .slide.active {
+        display: block;
+        opacity: 1;
+        transform: scale(1.1);
+        transition: all 0.2s ease;
+      }
+
+      .controls {
+        flex-direction: row;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .music-button {
+        bottom: 20px;
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.5em;
+      }
+
+      .progress-line {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Sisa kode tetap -->
+
+
+   <!-- Navbar -->
+  <div class="navbar">
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </div>
+
+  <!-- Side Menu -->
+  <div class="side-menu" id="sideMenu">
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <ul>
+      <li><i class="fa-solid fa-house"></i> <a href="home.html">Home</a></li>
+      <li><i class="fa-solid fa-user"></i> <a href="aboutHer.html">About Her</a></li>
+      <li><i class="fa-solid fa-envelope"></i> <a href="wishes.html">Wishes</a></li>
+      <li><i class="fa-solid fa-gift"></i> <a href="gift.html">Gift</a></li>
+      <li><i class="fa-solid fa-heart"></i> <a href="ourMoments.html">Our Moments</a></li>
+      <li><i class="fa-solid fa-right-from-bracket"></i> <a href="index.html">Log out</a></li>
+    </ul>
+  </div>
+
+  <!-- Tombol Music -->
+    <button class="music-button" id="musicButton" onclick="toggleMusic()">
+        <i id="musicIcon" class="fa-solid fa-pause"></i>
+    </button>
+
+    <!-- Audio -->
+    <audio id="homeMusic" autoplay loop>
+        <source src="sempurna.m4a" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="text-content">
+      <h1 id="title">Judul 1</h1>
+      <p id="desc">Deskripsi dari gambar pertama.</p>
+    </div>
+
+    <div class="carousel">
+      <div class="carousel-window">
+        <div class="carousel-track" id="track">
+          <div class="slide"><img src="bayi.jpg" alt=""></div>
+          <div class="slide"><img src="sd.jpg" alt=""></div>
+          <div class="slide"><img src="aa.jpg" alt=""></div>
+          <div class="slide"><img src="sma.jpg" alt=""></div>
+          <div class="slide"><img src="a1.jpg" alt=""></div>
+          <div class="slide"><img src="a2.jpg" alt=""></div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn" onclick="moveSlide(-1)">❮</button>
+        <div class="progress-line" id="progress"></div>
+        <button class="btn" onclick="moveSlide(1)">❯</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+       function toggleMenu() {
+      document.getElementById('sideMenu').classList.toggle('active');
+      const musicButton = document.getElementById('musicButton');
+       musicButton.classList.toggle('hide');
+    }
+    const music = document.getElementById('homeMusic');
+        const button = document.getElementById('musicButton');
+        const icon = document.getElementById('musicIcon');
+
+        // Autoplay saat halaman terbuka
+        music.play().catch(error => {
+            console.log('Autoplay blocked, please tap the play button.');
+        });
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+                button.classList.add('active');
+            } else {
+                music.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+                button.classList.remove('active');
+            }
+        }
+    const track = document.getElementById('track');
+    const slides = document.querySelectorAll('.slide');
+    const title = document.getElementById('title');
+    const desc = document.getElementById('desc');
+    const progress = document.getElementById('progress');
+
+    const slidesData = [
+      { title: "anak kecil", desc: "Dari kecil udah lucuu bangett, senyumnya bikin Bahagia ke sekeliling. kok bisa ya ada bocah selucu dan seimut ini, senyumnya tuh bener-bener kayak punya kekuatan buat nyebarin bahagia ke sekeliling. Kok bisa ya ada bocah sekecil ini, tapi auranya udah secerah itu? Imutnya gak kira-kira, ekspresinya polos tapi ngangenin. Dunia kayaknya baik banget waktu nyiptain kamu.", bg: "bayi.jpg" },
+      { title: "Rejection Loop", desc: "Ini jaman SMP. Awal kenal kamu, kamu tuh bocah tengil yang ogah-ogahan banget sama aku. Dulu aku pernah nyatain perasaan dua kali dan kamu tolak mentah mentah semua wkwk. Tapi akhirnya kamu nerima aku juga. Sayangnya, seminggu kemudian kamu minta udahan cuma karena 'pengen aja', kampret emg si Najwa ini. Kita sempat ga contact an dua bulan, tapi aku masih mikirin kamu terus, jadi aku coba deketin lagi. Walau sempet kamu tolak lagi empat kali, akhirnya kamu nerima aku juga. Untung aku gak nyerah wkwkwk.", bg: "sd.jpg" },
+      { title: "Repent & Retreat", desc: "disaat ini aku udh berhasil buat kamu jdi budak cinta, kamu bucin bgt sama aku (bangga), tp saat itu malah aku yg ga beres, dulu aku masih suka mainin kamu, aku malah nyakitin kamu, aku bener bener ngelakuin hal yang ga kamu suka, sorry for all the mmistakes i made, even though I love you very much. Btw ini foto fav aku pas kamu msih smp", bg: "aa.jpg" },
+      { title: "Denial", desc: "Kamu cantik banget, selalu cantik. Ini kamu pas SMA, saat aku mulai sadar kalau kamu pantas dapet cowok yang lebih baik. Waktu itu aku sempet coba ngejauhin kamu, tapi sejauh apapun aku pergi, ujung-ujungnya pasti balik ke kamu. Makasih ya udah selalu nungguin aku balik (meskipun kamu juga sempet oleng sih wkwkwk). Di momen ini kita masih TTM-an terus ya, ahaha.", bg: "sma.jpg" },
+      { title: "First meet, First shock!", desc: "Ini foto kamu pas first meet kita—gak nyangka kamu secantik, selucu, dan... sependek itu wkwkwkwk. Dari sini aku jadi makin sayang dan makin cinta sama kamu. Oh iya, dari first meet ini juga aku baru tau kalau kamu kalau marah bisa seseram itu HAHAHA. Dan ternyata kamu juga gampang ngambek, apalagi bibirmu kalau ngambek bisa maju 5 cm, persis kayak di foto itu wkwkwk.", bg: "a1.jpg" },
+      { title: "Still my little girl", desc: "Widiihhh sekarang Najwa udah kuliah di Universitas Brawijaya, aku bangga banget sama kamu! Gak nyangka bisa liat kamu sampai sejauh ini. Dulu pertama kenal, kamu masih bocah SMP yang ngaku kelas 9 padahal baru banget lulus SD wkwkwk. Gila ya, aku dulu ngejar-ngejar anak SD bjir. Tapi sekarang kamu udah gede, udah jadi mahasiswi keren. Aku seneng dan bangga bisa nemenin kamu sampai di titik ini. Tapi tetep aja di mataku, kamu masih bocah lulus SD yang aku kenal dulu wkwkwk. ", bg: "a2.jpg" },
+    ];
+
+    let currentIndex = 0;
+
+    function updateSlide() {
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentIndex);
+      });
+
+      const offset = (160 + 15) * currentIndex;
+      track.style.transform = `translateX(calc(100px - ${offset}px))`;
+
+      title.style.opacity = 0;
+      desc.style.opacity = 0;
+      setTimeout(() => {
+        title.textContent = slidesData[currentIndex].title;
+        desc.textContent = slidesData[currentIndex].desc;
+        title.style.opacity = 1;
+        desc.style.opacity = 1;
+      }, 200);
+
+      document.body.style.backgroundImage = `url('${slidesData[currentIndex].bg}')`;
+
+      progress.style.setProperty('--progress', currentIndex);
+    }
+
+    function moveSlide(dir) {
+      currentIndex = (currentIndex + dir + slides.length) % slides.length;
+      updateSlide();
+    }
+
+    updateSlide();
+  </script>
+</body>
+</html>

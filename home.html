@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Najwa!!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('home.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            margin-right: auto;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            margin-left: 40px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 15px;
+            transition: 0.3s;
+            font-size: 0.9em;
+        }
+
+        .navbar ul li a:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .hamburger {
+            display: none;
+        }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px 30px;
+            transition: left 0.3s ease;
+            z-index: 2000;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .side-menu ul {
+            list-style: none;
+        }
+
+        .side-menu ul li {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .side-menu ul li i {
+            margin-right: 10px;
+            color: white;
+        }
+
+        .side-menu ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+
+        .side-menu ul li a:hover {
+            color: #ffcccc;
+        }
+
+        .side-menu.active {
+            left: 0;
+        }
+
+        /* Content */
+        .content {
+            padding: 120px 80px 40px 80px;
+            text-align: left;
+            max-width: 700px;
+        }
+
+        .content h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        /* Music Button */
+        .music-button {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 55px;
+            height: 55px;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.8em;
+            z-index: 1000;
+            transition: all 0.3s ease, opacity 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .music-button.active {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+
+        .music-button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Hide element */
+        .hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Responsive untuk HP */
+        @media (max-width: 768px) {
+            .navbar {
+                justify-content: space-between;
+            }
+
+            .navbar ul {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+                font-size: 1.8em;
+                cursor: pointer;
+                position: relative;
+                left: 10px;
+                bottom: 0.1px;
+                z-index: 2001;
+            }
+
+            .content {
+                padding: 0 30px;
+                max-width: 100%;
+                height: 100vh;
+                display: flex;
+                text-align: justify;
+                align-items: center;
+              
+            }
+
+            .content h1 {
+                font-size: 2.5em;
+
+            }
+
+            .content p {
+                font-size: 1em;
+            }
+
+            .music-button {
+                bottom: 20px;
+                left: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.6em;
+            }
+
+            .side-menu .hamburger {
+                display: block;
+                font-size: 1.8em;
+                cursor: pointer;
+                margin-bottom: 20px;
+                position: relative;
+                left: 0;
+            }
+
+            .navbar .logo {
+                font-size: 1em;
+                margin-left: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="logo" id="logo">Happy Birthday Najwa!!</div>
+        <ul class="menu">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="aboutHer.html">About Her</a></li>
+            <li><a href="wishes.html">Wishes</a></li>
+            <li><a href="gift.html">Gift</a></li>
+            <li><a href="ourMoments.html">Our Moments</a></li>
+            <li><a href="index.html">Log out</a></li>
+        </ul>
+    </div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <ul>
+            <li><i class="fa-solid fa-house"></i> <a href="home.html">Home</a></li>
+            <li><i class="fa-solid fa-user"></i> <a href="aboutHer.html">About Her</a></li>
+            <li><i class="fa-solid fa-envelope"></i> <a href="wishes.html">Wishes</a></li>
+            <li><i class="fa-solid fa-gift"></i> <a href="gift.html">Gift</a></li>
+            <li><i class="fa-solid fa-heart"></i> <a href="ourMoments.html">Our Moments</a></li>
+            <li><i class="fa-solid fa-right-from-bracket"></i> <a href="index.html">Log out</a></li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <div>
+            <h1>Haloo, Najwa</h1>
+            <p>Selamat ulang tahun ke 18 yaa bocil dengan tinggi setara botol yakult!<br><br>
+                I hope that at your 18th birthday, you will become more mature, more patient, stronger, and an even better person. May everything you wish for come true this year. I hope you win every battle you're fighting alone, and I hope all the good things come your way.
+            </p>
+        </div>
+    </div>
+
+    <!-- Tombol Music -->
+    <button class="music-button" id="musicButton" onclick="toggleMusic()">
+        <i id="musicIcon" class="fa-solid fa-pause"></i>
+    </button>
+
+    <!-- Audio -->
+    <audio id="homeMusic" autoplay loop>
+        <source src="song2.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+
+    </audio>
+
+    <!-- Script -->
+    <script>
+        function toggleMenu() {
+            const sideMenu = document.getElementById('sideMenu');
+            const musicButton = document.getElementById('musicButton');
+            const logo = document.getElementById('logo');
+
+            sideMenu.classList.toggle('active');
+            musicButton.classList.toggle('hide');
+            logo.classList.toggle('hide');
+        }
+
+        const music = document.getElementById('homeMusic');
+        const button = document.getElementById('musicButton');
+        const icon = document.getElementById('musicIcon');
+
+        // Autoplay saat halaman terbuka
+        music.play().catch(error => {
+            console.log('Autoplay blocked, please tap the play button.');
+        });
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+                button.classList.add('active');
+            } else {
+                music.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+                button.classList.remove('active');
+            }
+        }
+    </script>
+
+</body>
+
+</html>

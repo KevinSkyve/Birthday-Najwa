@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Moments</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('majalah.jpg') center center / cover no-repeat;
+      padding: 80px 20px 40px;
+      color: #333;
+    }
+
+    .navbar {
+      width: 100%;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      position: fixed;
+      background: rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .hamburger {
+      font-size: 1.8em;
+      cursor: pointer;
+      color: white;
+      z-index: 2001;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 20px 30px;
+      transition: left 0.3s ease;
+      z-index: 2000;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .side-menu ul {
+      list-style: none;
+    }
+
+    .side-menu ul li {
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .side-menu ul li i {
+      margin-right: 10px;
+      color: white;
+    }
+
+    .side-menu ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    .side-menu ul li a:hover {
+      color: #ffcccc;
+    }
+
+    .side-menu.active {
+      left: 0;
+    }
+
+    .music-button {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 55px;
+      height: 55px;
+      background-color: rgba(255, 255, 255, 0.3);
+      color: black;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.8em;
+      z-index: 1000;
+      transition: all 0.3s ease, opacity 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .music-button.active {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: black;
+    }
+
+    .music-button:hover {
+      transform: scale(1.1);
+    }
+
+    .hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .page-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 60px;
+      gap: 30px;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      flex-wrap: wrap;
+    }
+
+    .page-section:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .page-section img,
+    .page-section video {
+      width: 45%;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .page-section .text {
+      width: 50%;
+    }
+
+    .page-section .text h2 {
+      font-size: 2em;
+      color: #1a1a1a;
+      margin-bottom: 15px;
+    }
+
+    .page-section .text p {
+      font-size: 1em;
+      line-height: 1.6;
+      text-align: justify;
+      color: #444;
+    }
+
+    .gallery {
+      margin-top: 60px;
+    }
+
+    .gallery h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .gallery-grid {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      border: 5px solid #fff;
+      outline: 1px solid #ccc;
+    }
+
+    @media (max-width: 768px) {
+      .page-section {
+        flex-direction: column !important;
+        text-align: center;
+      }
+
+      .page-section img,
+      .page-section video,
+      .page-section .text {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </div>
+
+  <div class="side-menu" id="sideMenu">
+    <div class="hamburger" onclick="toggleMenu()">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    <ul>
+      <li><i class="fa-solid fa-house"></i> <a href="home.html">Home</a></li>
+      <li><i class="fa-solid fa-user"></i> <a href="aboutHer.html">About Her</a></li>
+      <li><i class="fa-solid fa-envelope"></i> <a href="wishes.html">Wishes</a></li>
+      <li><i class="fa-solid fa-gift"></i> <a href="gift.html">Gift</a></li>
+      <li><i class="fa-solid fa-heart"></i> <a href="ourMoments.html">Our Moments</a></li>
+      <li><i class="fa-solid fa-right-from-bracket"></i> <a href="index.html">Log out</a></li>
+    </ul>
+  </div>
+
+  <button class="music-button" id="musicButton" onclick="toggleMusic()">
+    <i id="musicIcon" class="fa-solid fa-pause"></i>
+  </button>
+
+  <audio id="homeMusic" autoplay loop>
+    <source src="photo.m4a" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="page-section">
+    <div class="text">
+      <h2>Our First Meet</h2>
+      <p>Waktu pertama ketemu, aku sempet mikir, 'Kok bisa ya aku suka sama seseorang yang baru aku lihat langsung sekarang?' Tapi ternyata, kamu berhasil bikin aku makin yakin. Dari ekspresi marah sampai gaya ketawa kamu, semuanya ngena banget. Dan dari situ aku tahu, cerita kita baru mulai.</p>
+    </div>
+    <img src="satu.jpg" alt="Moment 1">
+  </div>
+
+  <div class="page-section">
+    <div class="text">
+      <h2>Spending Time</h2>
+      <p>Setiap detik yang kita habiskan bareng selalu terasa hangat. Entah itu duduk bareng sambil cerita random, atau cuma diam berdua tanpa kata rasanya tetap cukup. Kamu tuh kaya rumah… tempat paling nyaman buat pulang, walau cuma sebentar.</p>
+    </div>
+    <img src="dua.jpg" alt="Moment 2">
+  </div>
+
+  <div class="page-section">
+    <div class="text">
+      <h2>Laughs and Talks</h2>
+      <p>Di balik cermin itu, bukan sekadar pantulan tapi dua hati yang saling menemukan tawa. Tak ada kata-kata mewah, hanya candaan ringan yang menjelma jadi kenangan manis. Dalam senyummu, aku temukan rumah. Dalam tawamu, aku temukan tenang.</p>
+    </div>
+    <img src="tiga.jpg" alt="Moment 3">
+  </div>
+
+  <div class="page-section">
+    <div class="text">
+      <h2>Memories We Made</h2>
+      <p>Kita bukan cuma saling genggam tangan, tapi juga saling genggam luka, tawa, dan harapan. Di antara jemari yang saling terkait, tumbuh kenangan satu per satu—yang menjahit kita jadi satu cerita. Bukan cerita sempurna, tapi cerita yang selalu ingin kuulang, bersamamu.</p>
+    </div>
+    <img src="empat.jpg" alt="Moment 4">
+  </div>
+
+  <div class="page-section">
+    <div class="text">
+      <h2>Our Story in Motion</h2>
+      <p>Bukan satu video panjang, tapi potongan-potongan kecil yang menjahit perjalanan kita. Tertawa tanpa alasan, jalan kaki tanpa tujuan, obrolan tanpa naskah. Semua itu sederhana, tapi jadi bagian dari cerita besar yang hanya kita pahami.</p>
+    </div>
+    <video src="vidd.mp4" controls></video>
+  </div>
+
+  <div class="gallery">
+    <h2>Captured Moments</h2>
+    <div class="gallery-grid">
+      <img src="g1.jpg" alt="gallery 1">
+      <img src="g2.jpg" alt="gallery 2">
+      <img src="g3.jpg" alt="gallery 3">
+      <img src="g4.jpg" alt="gallery 4">
+      <img src="g5.jpg" alt="gallery 5">
+      <img src="g6.jpg" alt="gallery 6">
+      <img src="g7.jpg" alt="gallery 1">
+      <img src="g8.jpg" alt="gallery 2">
+      <img src="g9.jpg" alt="gallery 3">
+      <img src="g10.jpg" alt="gallery 4">
+      <img src="g11.jpg" alt="gallery 5">
+      <img src="g12.jpg" alt="gallery 6">
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('sideMenu').classList.toggle('active');
+      document.getElementById('musicButton').classList.toggle('hide');
+    }
+
+    const music = document.getElementById('homeMusic');
+    const button = document.getElementById('musicButton');
+    const icon = document.getElementById('musicIcon');
+
+    music.play().catch(() => {
+      console.log('Autoplay blocked.');
+    });
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        icon.classList.remove('fa-play');
+        icon.classList.add('fa-pause');
+        button.classList.add('active');
+      } else {
+        music.pause();
+        icon.classList.remove('fa-pause');
+        icon.classList.add('fa-play');
+        button.classList.remove('active');
+      }
+    }
+  </script>
+</body>
+</html>
